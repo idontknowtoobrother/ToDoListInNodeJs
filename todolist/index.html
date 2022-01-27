@@ -9,20 +9,26 @@
 </head>
 <body>
     
-    <div id="app"></div>
+    <div id="app">
         <h1>ToDo App</h1>
         <label>New ToDo</label>
         <input type="text">
         <button>Add ToDo</button>
         <h2>ToDo List</h2>
         <ul>
-            <li>eat food <button>X</button></li>
-            <li style="text-decoration: line-through;">eat food <button>X</button></li>
+            <li v-for="todo in todos"> {{ todo.content }} <button>X</button></li>
+            <!-- <li style="text-decoration: line-through;">eat food <button>X</button></li> -->
         </ul>
+    </div>
     <script>
         const App = {
             data(){
-                return {}
+                return {
+                    todos: [
+                        {content: 'eat food', done: false},
+                        {content: 'eat food', done: true},
+                    ],
+                }
             },
             methods: {
 
