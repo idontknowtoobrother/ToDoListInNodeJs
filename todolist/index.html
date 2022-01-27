@@ -17,10 +17,12 @@
             <button>Add ToDo</button>
         </form>
         
-        <h2>ToDo List</h2>
+        <h2>ToDo List {{todos.length}}</h2>
         <ul>
-            <li v-for="(todo, index) in todos"> {{ todo.content }} <button @click="removeContents(index)">X</button></li>
-            <!-- <li style="text-decoration: line-through;">eat food <button>X</button></li> -->
+            <li v-for="(todo, index) in todos"> 
+                <span :class="{done: todo.done, notDone: !todo.done}" @click="doContent(todo)">{{ todo.content }}</span> 
+                <button @click="removeContents(index)">X</button>
+            </li>
         </ul>
     </div>
     <script>
@@ -45,6 +47,10 @@
                     this.todos.splice(i, 1)
                     this.debug(`remove todos at -> ${i}`)
                 },
+                doContent(content){
+                    content.done = !content.done
+                    this.debug(`do content ${JSON.stringify(content)}`)
+                },
                 debug(vars){
                     console.log(`dubug: ${vars}`)
                 }
@@ -53,5 +59,15 @@
         const vue = Vue.createApp(App)
         vue.mount("#app") 
     </script>
+    <style>
+        .done {
+            opacity: .3;
+            text-decoration: line-through;
+        }
+        .notDone{
+            color: rgb(255, 189, 23);
+            text-decoration: underline;
+        }
+    </style>
 </body>
 </html>
