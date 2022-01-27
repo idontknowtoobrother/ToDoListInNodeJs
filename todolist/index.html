@@ -11,12 +11,15 @@
     
     <div id="app">
         <h1>ToDo App</h1>
-        <label>New ToDo</label>
-        <input type="text">
-        <button>Add ToDo</button>
+        <form @submit.prevent="addContents()">
+            <label>New ToDo </label>
+            <input type="text" v-model="content">
+            <button>Add ToDo</button>
+        </form>
+        
         <h2>ToDo List</h2>
         <ul>
-            <li v-for="todo in todos"> {{ todo.content }} <button>X</button></li>
+            <li v-for="(todo, index) in todos"> {{ todo.content }} <button @click="removeContents(index)">X</button></li>
             <!-- <li style="text-decoration: line-through;">eat food <button>X</button></li> -->
         </ul>
     </div>
@@ -24,14 +27,27 @@
         const App = {
             data(){
                 return {
-                    todos: [
-                        {content: 'eat food', done: false},
-                        {content: 'eat food', done: true},
-                    ],
+                    todos: [],
+                    content: ''
                 }
             },
             methods: {
-
+                addContents(){
+                    this.debug(this.content)
+                    if(this.content.length < 1)return; // if length < 1 will not add to list
+                    this.todos.push({ // push to 'todos' list
+                        content: this.content,
+                        done: false
+                    })
+                    this.content = '' // clear content value
+                },
+                removeContents(i){
+                    this.todos.splice(i, 1)
+                    this.debug(`remove todos at -> ${i}`)
+                },
+                debug(vars){
+                    console.log(`dubug: ${vars}`)
+                }
             }
         }
         const vue = Vue.createApp(App)
