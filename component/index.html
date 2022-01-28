@@ -14,7 +14,7 @@
     <script>
         const ButtonCounter = {
             data(){
-                return{
+                return {
                     counter: 0
                 }
             }
@@ -23,21 +23,24 @@
     </script>
 
     <div id="app">
-        <button-counter> </button-counter>
-        <button-counter> </button-counter>
-        <button-counter> </button-counter>
-        <button-counter> </button-counter>
+        <button-counter initcounter="1"></button-counter>
+        <button-counter initcounter="1"> </button-counter>
+        <button-counter initcounter="1"> </button-counter>
+        <button-counter initcounter="1"> </button-counter>
     </div>
     <script>
         const App = {
             data(){
-
+                return  {}
             }
         }
         const vue = Vue.createApp(App)
         vue.component('button-counter', {
+            props: [
+                "initcounter"
+            ],
             data(){
-                return {counter:0}
+                return {counter: this.initcounter}
             },
             template: `
                 <button @click="counter++">{{ counter }}</button>
